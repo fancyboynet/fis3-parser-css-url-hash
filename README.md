@@ -5,7 +5,7 @@ css引用本地图片链接自动增加hash query,避免浏览器缓存
 ## 安装
 
 ```bash
-$ npm install fis3-parse-css-url-hash
+$ npm install fis3-parse-css-url-hash --save-dev
 ```
 
 ## 基本使用

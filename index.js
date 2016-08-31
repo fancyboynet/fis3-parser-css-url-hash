@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function (content, file, opt) {
   // 只对 css 类文件进行处理
   if (!file.isCssLike){

@@ -1,6 +1,6 @@
 {
   "name": "fis3-parser-css-url-hash",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "css引用本地图片链接自动增加hash query,避免浏览器缓存",
   "main": "index.js",
   "keywords": [
