@@ -1,0 +1,23 @@
+{
+  "name": "fis3-parser-css-url-hash",
+  "version": "0.0.1",
+  "description": "css引用本地图片链接自动增加hash query,避免浏览器缓存",
+  "main": "index.js",
+  "keywords": [
+    "fis",
+    "fis3",
+    "plugin",
+    "css",
+    "hash"
+  ],
+  "author": "Fancy <fancyboynet@gmail.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fancyboynet/fis3-parser-css-url-hash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fancyboynet/fis3-parser-css-url-hash/issues"
+  },
+  "homepage": "https://github.com/fancyboynet/fis3-parser-css-url-hash"
+}
