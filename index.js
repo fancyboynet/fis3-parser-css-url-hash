@@ -6,15 +6,15 @@ module.exports = function (content, file, opt) {
   }
   let path = require('path');
   var param = opt.param || 'h';
-  let reg = /(url\(("|'))([^"']+)(\2\))/ig;
+  let reg = /url\((.+?)\)/ig;
   let regAbsoluteUri = /^((http(s)?:)?\/)?\//i;
-  return content.replace(reg, function ($0, $1, $2, $3, $4) {
-    let uri = $3;
-    if(!regAbsoluteUri.test($3)){
-      let imgPath = path.resolve(file.dirname, $3);
-      let img = fis.file.wrap(imgPath);
-      uri = $3 + ($3.indexOf('?') === -1 ? '?' : '&') + param + '=' + img.getHash();
+  return content.replace(reg, function ($0, $1) {
+    let uri = $1.replace(/['"]/g, '');
+    if(!regAbsoluteUri.test(uri)){
+      let filePath = path.resolve(file.dirname, uri);
+      let file2 = fis.file.wrap(filePath);
+      uri = uri + (uri.indexOf('?') === -1 ? '?' : '&') + param + '=' + file2.getHash();
     }
-    return $1 + uri + $4;
+    return 'url(' + uri + ')';
   });
 };
