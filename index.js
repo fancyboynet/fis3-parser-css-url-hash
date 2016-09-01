@@ -8,13 +8,19 @@ module.exports = function (content, file, opt) {
   var param = opt.param || 'h';
   let reg = /url\((.+?)\)/ig;
   let regAbsoluteUri = /^((http(s)?:)?\/)?\//i;
+  let regBase64Uri = /^data:image\//i;
   return content.replace(reg, function ($0, $1) {
     let uri = $1.replace(/['"]/g, '');
-    if(!regAbsoluteUri.test(uri)){
-      let filePath = path.resolve(file.dirname, uri);
-      let file2 = fis.file.wrap(filePath);
-      uri = uri + (uri.indexOf('?') === -1 ? '?' : '&') + param + '=' + file2.getHash();
+    let newUri = 'url(' + uri + ')';
+    if(regAbsoluteUri.test(uri)){
+      return newUri;
     }
-    return 'url(' + uri + ')';
+    if(regBase64Uri.test(uri)){
+      return newUri;
+    }
+    let filePath = path.resolve(file.dirname, uri);
+    let file2 = fis.file.wrap(filePath);
+    newUri = uri + (uri.indexOf('?') === -1 ? '?' : '&') + param + '=' + file2.getHash();
+    return newUri;
   });
 };
