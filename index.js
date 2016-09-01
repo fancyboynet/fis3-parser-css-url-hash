@@ -11,16 +11,13 @@ module.exports = function (content, file, opt) {
   let regBase64Uri = /^data:image\//i;
   return content.replace(reg, function ($0, $1) {
     let uri = $1.replace(/['"]/g, '');
-    let newUri = 'url(' + uri + ')';
-    if(regAbsoluteUri.test(uri)){
-      return newUri;
+
+    if(!regAbsoluteUri.test(uri) && !regBase64Uri.test(uri)){
+      let filePath = path.resolve(file.dirname, uri);
+      let file2 = fis.file.wrap(filePath);
+      uri = uri + (uri.indexOf('?') === -1 ? '?' : '&') + param + '=' + file2.getHash();
     }
-    if(regBase64Uri.test(uri)){
-      return newUri;
-    }
-    let filePath = path.resolve(file.dirname, uri);
-    let file2 = fis.file.wrap(filePath);
-    newUri = uri + (uri.indexOf('?') === -1 ? '?' : '&') + param + '=' + file2.getHash();
-    return newUri;
+    
+    return 'url(' + uri + ')';
   });
 };
